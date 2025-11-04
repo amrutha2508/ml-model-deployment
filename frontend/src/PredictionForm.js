@@ -12,6 +12,29 @@ export default function PredictionForm() {
     model2: [0, 0, 0, 0],
   });
 
+  const Model1Description = () => (
+    <div>
+      <p>This model classifies <strong>Iris flowers</strong> based on four features:</p>
+      <ul>
+        <li>Sepal length</li>
+        <li>Sepal width</li>
+        <li>Petal length</li>
+        <li>Petal width</li>
+      </ul>
+      <p>It outputs one of three species: Setosa, Versicolor, or Virginica.</p>
+    </div>
+  );
+
+  const Model2Description = () => (
+    <div>
+      <p>The <strong>AI Topic Classifier</strong> processes news headlines and predicts:</p>
+      <ul>
+        <li><strong>categories</strong> Education, Society, Career, AI in various Industries, AI in companies & Enterprises, AI overview risks & impact, AI governance and geopolitics, AI investments and market trends, AI Ethics Law and Policy, Other</li>
+      </ul>
+      <p>It helps analyze media narratives and detect domain-specific trends.</p>
+    </div>
+  );
+
   // Track prediction result **per model**
   const [resultByModel, setResultByModel] = useState({
     model1: "",
@@ -20,9 +43,10 @@ export default function PredictionForm() {
 
 
   const models = [
-    { model_name: "model1", modelTitle: "Iris classifier", modelDescription: "classifies the flower ..." },
-    { model_name: "model2", modelTitle: "AI Topic Classifier", modelDescription: "Classifies headlines into Broad + Subcategories" },
+    { model_name: "model1", modelTitle: "Iris Classifier", descriptionComponent: <Model1Description /> },
+    { model_name: "model2", modelTitle: "AI Topic Classifier", descriptionComponent: <Model2Description /> },
   ];
+
 
 
   const handleChange = (modelName, index, value) => {
@@ -94,7 +118,7 @@ const renderModelDemo = (item) => {
       {isExpanded && (
         <div style={styles.modelDescriptionBlock} onClick={(e) => e.stopPropagation()}>
           <div style={styles.descDiv}>
-            <strong>Description:</strong> {item.modelDescription}
+            <strong>Description:</strong> {item.descriptionComponent}
           </div>
 
           {/* Model 1 input (numeric features) */}
